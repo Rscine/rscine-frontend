@@ -18,7 +18,8 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'ngMaterial'
+    'ngMaterial',
+    'restangular'
   ])
   .config(function ($routeProvider) {
     $routeProvider
