@@ -12,13 +12,15 @@ angular.module('rscineFrontendApp')
         $provide.decorator('Restangular', function ($delegate, oAuthAuthentication) {
             $delegate.setBaseUrl('http://api.rscine.dev/api/v1');
 
-            $delegate.addFullRequestInterceptor(function (element, operation, what, url) {
-                console.log(element, operation, what, url);
+            $delegate.addFullRequestInterceptor(function (element, operation, what, url, headers, params, httpConfig) {
                 if (operation == 'get') {
+                    params['access_token'] = oAuthAuthentication.getToken();
+
                     return {
-                        params: {
-                            access_token: oAuthAuthentication.getToken()
-                        }
+                        element: element,
+                        headers: headers,
+                        params: params,
+                        httpConfig: httpConfig
                     }
                 }
             })
