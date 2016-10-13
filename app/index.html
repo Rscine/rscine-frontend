@@ -23,73 +23,76 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <!-- Add your site or application content here -->
-    <div ng-controller="NavCtrl">
-        <md-sidenav class="md-sidenav-left" md-component-id="left" md-whiteframe="4">
-            <md-toolbar class="md-theme-indigo">
+    <div ng-controller="MainCtrl">
+
+        <!-- Add your site or application content here -->
+        <div ng-controller="NavCtrl">
+            <md-sidenav class="md-sidenav-left" md-component-id="left" md-whiteframe="4">
+                <md-toolbar class="md-theme-indigo">
+                    <div class="md-toolbar-tools">
+                        <h1 class="md-toolbar-tools">Menu</h1>
+                        <md-button class="md-icon-button" aria-label="Close" ng-click="toggleLeft()">
+                            <md-icon aria-label="User" class="material-icons step">
+                                close
+                            </md-icon>
+                        </md-button>
+                    </div>
+                </md-toolbar>
+
+                <md-content layout-margin>
+                </md-content>
+            </md-sidenav>
+
+            <md-toolbar>
                 <div class="md-toolbar-tools">
-                    <h1 class="md-toolbar-tools">Menu</h1>
-                    <md-button class="md-icon-button" aria-label="Close" ng-click="toggleLeft()">
-                        <md-icon aria-label="User" class="material-icons step">
-                            close
+                    <md-button ng-click="toggleLeft()" aria-label="Menu" class="md-icon-button">
+                        <md-icon aria-label="Menu" class="material-icons step">
+                            menu
                         </md-icon>
                     </md-button>
+                    <h2>
+                        <span>Rscine</span>
+                    </h2>
+                    <span flex></span>
+
+                    <!-- Notifications -->
+                    <md-button aria-label="Open phone interactions menu" class="md-icon-button" aria-label="Profile">
+                        <md-icon md-menu-origin aria-label="User" class="material-icons step">
+                            notifications
+                        </md-icon>
+                    </md-button>
+
+                    <!-- Profil -->
+                    <md-menu md-position-mode="target-right target">
+                        <md-button aria-label="Open user profile menu" ng-click="openMenu($mdOpenMenu, $event)" class="md-icon-button" aria-label="Profile">
+                            <md-icon md-menu-origin aria-label="User" class="material-icons step">
+                                person
+                            </md-icon>
+                        </md-button>
+
+                        <md-menu-content width="3">
+                            <md-menu-item>
+                                <md-button ng-href="/#/profile">
+                                    <md-icon class="material-icons step" md-menu-align-target>person</md-icon>
+                                    Profile
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item>
+                                <md-button ng-click="logout()">
+                                    <md-icon class="material-icons step">power_settings_new</md-icon>
+                                    Log out
+                                </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+
                 </div>
             </md-toolbar>
+        </div>
 
-            <md-content layout-margin>
-            </md-content>
-        </md-sidenav>
+        <div ng-view=""></div>
 
-        <md-toolbar>
-            <div class="md-toolbar-tools">
-                <md-button ng-click="toggleLeft()" aria-label="Menu" class="md-icon-button">
-                    <md-icon aria-label="Menu" class="material-icons step">
-                        menu
-                    </md-icon>
-                </md-button>
-                <h2>
-                    <span>Rscine</span>
-                </h2>
-                <span flex></span>
-
-                <!-- Notifications -->
-                <md-button aria-label="Open phone interactions menu" class="md-icon-button" aria-label="Profile">
-                    <md-icon md-menu-origin aria-label="User" class="material-icons step">
-                        notifications
-                    </md-icon>
-                </md-button>
-
-                <!-- Profil -->
-                <md-menu md-position-mode="target-right target">
-                    <md-button aria-label="Open user profile menu" ng-click="openMenu($mdOpenMenu, $event)" class="md-icon-button" aria-label="Profile">
-                        <md-icon md-menu-origin aria-label="User" class="material-icons step">
-                            person
-                        </md-icon>
-                    </md-button>
-
-                    <md-menu-content width="3">
-                        <md-menu-item>
-                            <md-button ng-href="/#/profile">
-                                <md-icon class="material-icons step" md-menu-align-target>person</md-icon>
-                                Profile
-                            </md-button>
-                        </md-menu-item>
-                        <md-menu-item>
-                            <md-button ng-click="logout()">
-                                <md-icon class="material-icons step">power_settings_new</md-icon>
-                                Log out
-                            </md-button>
-                        </md-menu-item>
-                    </md-menu-content>
-                </md-menu>
-
-            </div>
-        </md-toolbar>
     </div>
-
-    <div ng-view=""></div>
-
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -129,6 +132,8 @@
     <script src="scripts/services/oAuthAuthentication.js"></script>
     <script src="scripts/controllers/login.js"></script>
     <script src="scripts/services/basicAuthentication.js"></script>
+    <script src="scripts/controllers/home.js"></script>
+    <script src="scripts/services/loader.js"></script>
     <!-- endbuild -->
 </body>
 </html>
