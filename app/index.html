@@ -5,6 +5,8 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
@@ -22,39 +24,51 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="header" ng-controller="NavCtrl">
-        <md-sidenav class="md-sidenav-left" md-component-id="left"
-                     md-whiteframe="4">
+    <div ng-controller="NavCtrl">
+        <md-sidenav class="md-sidenav-left" md-component-id="left" md-whiteframe="4">
 
           <md-toolbar class="md-theme-indigo">
+              <div class="md-toolbar-tools">
             <h1 class="md-toolbar-tools">Disabled Backdrop</h1>
+            <md-button class="md-icon-button" aria-label="Close" ng-click="toggleLeft()">
+               <md-icon aria-label="User" class="material-icons step">
+                   close
+               </md-icon>
+            </md-button>
+        </div>
           </md-toolbar>
 
           <md-content layout-margin>
             <p>
               This sidenav is not showing any backdrop, where users can click on it, to close the sidenav.
             </p>
-            <md-button ng-click="toggleLeft()" class="md-accent">
-              Close this Sidenav
-            </md-button>
+
           </md-content>
 
         </md-sidenav>
 
-          <md-button ng-click="toggleLeft()" class="md-raised">
-            Toggle Sidenav
-          </md-button>
+          <md-toolbar>
+               <div class="md-toolbar-tools">
+                 <md-button ng-click="toggleLeft()" aria-label="Menu" class="md-icon-button">
+                    <md-icon aria-label="Menu" class="material-icons step">
+                        menu
+                    </md-icon>
+                 </md-button>
+                 <h2>
+                   <span>Rscine</span>
+                 </h2>
+                 <span flex></span>
+
+                 <md-button class="md-icon-button" aria-label="Profile">
+                    <md-icon aria-label="User" class="material-icons step">
+                        person
+                    </md-icon>
+                 </md-button>
+               </div>
+             </md-toolbar>
     </div>
 
-    <div class="container">
     <div ng-view=""></div>
-    </div>
-
-    <div class="footer">
-      <div class="container">
-
-      </div>
-    </div>
 
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
