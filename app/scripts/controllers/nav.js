@@ -8,7 +8,7 @@
  * Controller of the rscineFrontendApp
  */
 angular.module('rscineFrontendApp')
-    .controller('NavCtrl', function ($scope, $mdSidenav) {
+    .controller('NavCtrl', function ($scope, $mdSidenav, basicAuthentication, $location) {
         $scope.toggleLeft = buildToggler('left');
         $scope.toggleRight = buildToggler('right');
 
@@ -16,5 +16,15 @@ angular.module('rscineFrontendApp')
             return function() {
                 $mdSidenav(componentId).toggle();
             }
+        }
+
+        $scope.openMenu = function($mdOpenMenu, ev) {
+            $mdOpenMenu(ev);
+        };
+
+        $scope.logout = function () {
+            basicAuthentication.invalidateSession().then(function () {
+                $location.path('/');
+            })
         }
     });

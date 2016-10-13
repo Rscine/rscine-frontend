@@ -23,6 +23,7 @@ angular.module('rscineFrontendApp')
             this.invalidateSession = function () {
                 $cookies.remove(sessionStateCookieName);
                 // @todo remove the token and refresh tokens as well
+                return $q.resolve();
             }
         }
 

@@ -53,11 +53,37 @@
                 </h2>
                 <span flex></span>
 
-                <md-button class="md-icon-button" aria-label="Profile">
-                    <md-icon aria-label="User" class="material-icons step">
-                        person
+                <!-- Notifications -->
+                <md-button aria-label="Open phone interactions menu" class="md-icon-button" aria-label="Profile">
+                    <md-icon md-menu-origin aria-label="User" class="material-icons step">
+                        notifications
                     </md-icon>
                 </md-button>
+
+                <!-- Profil -->
+                <md-menu md-position-mode="target-right target">
+                    <md-button aria-label="Open user profile menu" ng-click="openMenu($mdOpenMenu, $event)" class="md-icon-button" aria-label="Profile">
+                        <md-icon md-menu-origin aria-label="User" class="material-icons step">
+                            person
+                        </md-icon>
+                    </md-button>
+
+                    <md-menu-content width="3">
+                        <md-menu-item>
+                            <md-button ng-href="/#/profile">
+                                <md-icon class="material-icons step" md-menu-align-target>person</md-icon>
+                                Profile
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button ng-click="logout()">
+                                <md-icon class="material-icons step">power_settings_new</md-icon>
+                                Log out
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+
             </div>
         </md-toolbar>
     </div>
