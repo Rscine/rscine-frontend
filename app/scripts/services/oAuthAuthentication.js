@@ -16,7 +16,9 @@ angular.module('rscineFrontendApp')
         var clientId = '1_1ad5fz4ysgiss04go4ccow48csckggc08oswo0g840w8kk8w8s';
         var clientSecret = 'fr0eadkdeyo08kk0okwkgsogo0ws8c0g44sgco84kk8c4sksw';
 
-        function OAuthAuthenticator($cookies, $http) {
+        function OAuthAuthenticator($cookies, $http, $q) {
+            var self = this;
+
             /**
              * Returns the access token from the session
              * @return {string}
@@ -53,10 +55,10 @@ angular.module('rscineFrontendApp')
                         'refresh_token': refreshToken
                     }
                 }).then(function success(response) {
-                    this.setToken(response.token);
-                    this.setRefreshToken(response.refresh_token);
+                    self.setToken(response.data.acess_token);
+                    self.setRefreshToken(response.data.refresh_token);
 
-                    return this.getToken();
+                    return self.getToken();
                 }, function error(response) {
                     return null;
                 });
@@ -68,8 +70,8 @@ angular.module('rscineFrontendApp')
              * @param  {string} password
              * @return {string|null}
              */
-            this.getAccessTokenByCredentials = function (username, password) {
-                $http({
+            this.authenticate = function (username, password) {
+                return $http({
                     method: 'post',
                     url: accessTokenUrl,
                     data: {
@@ -80,12 +82,12 @@ angular.module('rscineFrontendApp')
                         'password': password
                     }
                 }).then(function success(response) {
-                    this.setToken(response.token);
-                    this.setRefreshToken(response.refresh_token);
+                    self.setToken(response.data.access_token);
+                    self.setRefreshToken(response.data.refresh_token);
 
-                    return this.getToken();
+                    return $q.resolve();
                 }, function error(response) {
-                    return null;
+                    return $q.reject();
                 });
             }
 
@@ -108,7 +110,7 @@ angular.module('rscineFrontendApp')
              * Sets the refresh token to the session
              */
             this.setRefreshToken = function (refreshToken) {
-                $cookies.put(refreshTokenCookieName, refreshtoken);
+                $cookies.put(refreshTokenCookieName, refreshToken);
             }
 
             /**
@@ -121,7 +123,7 @@ angular.module('rscineFrontendApp')
         }
 
         // Method for instantiating
-        this.$get = function ($cookies, $http) {
-            return new OAuthAuthenticator($cookies, $http);
+        this.$get = function ($cookies, $http, $q) {
+            return new OAuthAuthenticator($cookies, $http, $q);
         };
     });
