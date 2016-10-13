@@ -8,6 +8,8 @@
  * Controller of the rscineFrontendApp
  */
 angular.module('rscineFrontendApp')
-    .controller('ProfileCtrl', function ($scope) {
-
+    .controller('ProfileCtrl', function ($scope, Restangular) {
+        Restangular.one('users', 1).get().then(function (user) {
+            $scope.user = user;
+        })
     });
