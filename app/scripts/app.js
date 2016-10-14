@@ -43,6 +43,11 @@ angular
         controller: 'HomeCtrl',
         controllerAs: 'home'
       })
+      .when('/offers', {
+        templateUrl: 'views/offers.html',
+        controller: 'OffersCtrl',
+        controllerAs: 'offers'
+      })
       .otherwise({
         redirectTo: '/'
       });
