@@ -10,7 +10,11 @@
 angular.module('rscineFrontendApp')
     .config(function ($provide) {
         $provide.decorator('Restangular', function ($delegate, oAuthAuthentication) {
-            $delegate.setBaseUrl('http://api.rscine.dev/api/v1');
+            $delegate.getBaseUrl = function () {
+                return 'http://api.rscine.dev';
+            }
+
+            $delegate.setBaseUrl($delegate.getBaseUrl() + '/api/v1');
 
             $delegate.addFullRequestInterceptor(function (element, operation, what, url, headers, params, httpConfig) {
                 if (operation == 'get') {
@@ -24,6 +28,20 @@ angular.module('rscineFrontendApp')
                     }
                 }
             })
+
+            $delegate.setErrorInterceptor(function(response, deferred, responseHandler) {
+                if(response.status === 401) {
+                    oAuthAuthentication.getAccessTokenByRefreshToken(oAuthAuthentication.getToken()).then(function() {
+                        // Repeat the request and then call the handlers the usual way.
+                        $http(response.config).then(responseHandler, deferred.reject);
+                        // Be aware that no request interceptors are called this way.
+                    });
+
+                    return false; // error handled
+                }
+
+                return true; // error not handled
+            });
 
             return $delegate;
         });
