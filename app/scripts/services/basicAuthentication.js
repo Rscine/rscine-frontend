@@ -14,16 +14,26 @@ angular.module('rscineFrontendApp')
         function BasicAuthenticator($cookies, $q, oAuthAuthentication) {
             this.authenticate = function (username, password) {
                 return oAuthAuthentication.authenticate(username, password).then(function () {
-                    $cookies.put(sessionStateCookieName, true);
+                    $cookies.put(sessionStateCookieName, 'authenticated');
 
                     return $q.resolve();
                 });
             };
 
             this.invalidateSession = function () {
-                $cookies.remove(sessionStateCookieName);
+                $cookies.put(sessionStateCookieName, 'anonymous');
                 // @todo remove the token and refresh token as well
                 return $q.resolve();
+            }
+
+            this.isLoggedIn = function () {
+                var userState = $cookies.get(sessionStateCookieName);
+
+                if (userState == 'authenticated') {
+                    return $q.resolve();
+                } else {
+                    return $q.reject();
+                }
             }
         }
 

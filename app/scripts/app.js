@@ -31,7 +31,12 @@ angular
       .when('/profile', {
         templateUrl: 'views/profile.html',
         controller: 'ProfileCtrl',
-        controllerAs: 'profile'
+        controllerAs: 'profile',
+        resolve: {
+          auth: function (basicAuthentication) {
+            return basicAuthentication.isLoggedIn();
+          }
+        }
       })
       .when('/login', {
         templateUrl: 'views/login.html',
@@ -46,9 +51,19 @@ angular
       .when('/offers', {
         templateUrl: 'views/offers.html',
         controller: 'OffersCtrl',
-        controllerAs: 'offers'
+        controllerAs: 'offers',
+        resolve: {
+          auth: function (basicAuthentication) {
+            return basicAuthentication.isLoggedIn();
+          }
+        }
       })
       .otherwise({
         redirectTo: '/'
       });
+  })
+  .run(function($rootScope, $location) {
+    $rootScope.$on("$routeChangeError", function(event, current, previous, rejection) {
+      $location.path("/login");
+    });
   });
