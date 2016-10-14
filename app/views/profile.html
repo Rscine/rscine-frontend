@@ -3,10 +3,14 @@
         <img class="md-user-avatar" src="images/avatar_default.jpg"/>
         <md-card-title>
             <md-card-title-text>
-                <span class="md-headline">{{ user.username }}, {{ user.company.name }}</span>
+                <span class="md-headline">{{ user.username }}</span>
             </md-card-title-text>
         </md-card-title>
         <md-card-content>
+            <p>
+                <md-icon class="material-icons step" md-menu-align-target>account_balance</md-icon>
+                {{ user.company.name }}
+            </p>
             <div ng-repeat="address in user._embedded.contactInformation._embedded.addresses">
                 <p>
                     <md-icon class="material-icons step" md-menu-align-target>place</md-icon>
