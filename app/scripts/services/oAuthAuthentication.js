@@ -13,8 +13,8 @@ angular.module('rscineFrontendApp')
         var refreshTokenCookieName = 'refreshToken';
 
         var accessTokenUrl = 'http://api.rscine.dev/oauth/v2/token';
-        var clientId = '1_1ad5fz4ysgiss04go4ccow48csckggc08oswo0g840w8kk8w8s';
-        var clientSecret = 'fr0eadkdeyo08kk0okwkgsogo0ws8c0g44sgco84kk8c4sksw';
+        var clientId = '2_xmdzbcepi4g0kwoowwgk0gk4o4wsksoo8k8go8oswo8w8o8wo';
+        var clientSecret = '5coet9p1rack4gs4c0wco88ckc4k4ows4c848sckwoc4444o00';
 
         function OAuthAuthenticator($cookies, $http, $q) {
             var self = this;
@@ -45,7 +45,7 @@ angular.module('rscineFrontendApp')
              * @return {string|null}
              */
             this.getAccessTokenByRefreshToken = function (refreshToken) {
-                $http({
+                return $http({
                     method: 'post',
                     url: accessTokenUrl,
                     data: {
@@ -58,9 +58,9 @@ angular.module('rscineFrontendApp')
                     self.setToken(response.data.acess_token);
                     self.setRefreshToken(response.data.refresh_token);
 
-                    return self.getToken();
+                    return $q.resolve();
                 }, function error(response) {
-                    return null;
+                    return $q.reject();
                 });
             }
 
