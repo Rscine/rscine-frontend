@@ -9,7 +9,10 @@
  */
 angular.module('rscineFrontendApp')
     .controller('ProfileCtrl', function ($scope, Restangular) {
-        Restangular.one('users', 1).get().then(function (user) {
+        Restangular.one('users', 'me').get().then(function (user) {
             $scope.user = user;
+            Restangular.oneUrl('companies', Restangular.getBaseUrl() + user._links.company.href).get().then(function (company) {
+                $scope.user.company = company;
+            })
         })
     });
